@@ -221,9 +221,41 @@
 					$sql= $sql. ") tbin group by " . $_group_detail_out . " ) tb" ; 
 					return fetch_query_m_prod($sql);
 				}
-			function fn_enp_main_prod_field_table_pd($_ag_pd) 
+			function fn_enp_main_prod_field_table_pd($_ag_pd,$_prd) 
 			// function fn_enp_main_prod_field_table_pd() 
 				{
+				 	if($_ag_pd==0)
+				 	{
+				 		if ($_prd==1) {
+				 			echo "Aggrigate+Oil";
+							 
+						 } else if ($_prd==2) {
+				 			echo "Aggrigate+Gas";
+							 
+						 }else if ($_prd==3) {
+				 			echo "Aggrigate+LPG";
+							 
+						 }else if ($_prd==4) {
+				 			echo "Aggrigate+All";
+							 
+						 }
+				 	}else if($_ag_pd==1)
+				 	{
+				 		if ($_prd==1) {
+				 			echo "PerDay+Oil";
+							 
+						 } else if ($_prd==2) {
+				 			echo "PerDay+Gas";
+							 
+						 }else if ($_prd==3) {
+				 			echo "PerDay+LPG";
+							 
+						 }else if ($_prd==4) {
+				 			echo "PerDay+All";
+							 
+						 }
+				 	}
+					
 					$sql_drop_tba='';
 					$sql_drop_tba="DROP TABLE IF EXISTS tb_enp_dump_mp";
 					$dbase=fn_con();

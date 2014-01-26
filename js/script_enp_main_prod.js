@@ -4,8 +4,9 @@ var _field_to=0;
 var _lease=0;
 var _lease_from=0;
 var _lease_to=0;
-var _ag_pd=0;
-// *** Information Regarding Data Selection 1st DDL *** 
+var _ag_pd="";
+var _prd="";
+// *** Information Regarvarding Data Selection 1st DDL *** 
 	function srpt_enp_main_prod_dcat_ddl(str)
 		{
 			if (str=="")
@@ -147,6 +148,11 @@ var _ag_pd=0;
 
 		function srpt_enp_main_prod_submit_button(str)
 			{
+				if (str=="")
+					{
+						document.getElementById("txtHint9").innerHTML="";
+						return;
+					} 
 				if(str=="a")
 					{
 						alert("Aggrigate");
@@ -161,12 +167,8 @@ var _ag_pd=0;
 					{
 						alert("Try it");
 						_ag_pd=2;
+						_prd=4;
 					}
-				if (str=="")
-					{
-						document.getElementById("txtHint9").innerHTML="";
-						return;
-					} 
 				if (window.XMLHttpRequest)
 					{// code for IE7+, Firefox, Chrome, Opera, Safari
 						xmlhttp=new XMLHttpRequest();
@@ -182,7 +184,58 @@ var _ag_pd=0;
 								document.getElementById("txtHint9").innerHTML=xmlhttp.responseText;
 							}
 					}
-				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd,true);
+				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd,true);
+				xmlhttp.send();
+			}
+			
+			function srpt_enp_main_prod_prd_button(str)
+			{
+				if (str==""&&_ag_pd=="")
+					{
+						alert("Submit Form First");
+						document.getElementById("txtHint9").innerHTML="";
+						return;
+					} 
+				if (_ag_pd==2)
+				{
+					_ag_pd=0;
+				}
+				if(str=="oil")
+					{
+						alert("oil");
+						_prd=1;
+					}
+				else if(str=="gas")
+					{
+						alert("gas");
+						_prd=2;
+					}
+				else if(str=="lpg")
+					{
+						alert("lpg");
+						_prd=3;
+					}
+				else if(str=="all")
+					{
+						alert("all");
+						_prd=4;
+					}
+				if (window.XMLHttpRequest)
+					{// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+					}
+				else
+					{// code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+				xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+							{
+								document.getElementById("txtHint9").innerHTML=xmlhttp.responseText;
+							}
+					}
+				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd,true);
 				xmlhttp.send();
 			}
 	// *** end of Field Information Period To 4th DDL *** 

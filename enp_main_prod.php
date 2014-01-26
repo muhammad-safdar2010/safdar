@@ -111,10 +111,10 @@
 							<button style="width:25%" onClick="srpt_enp_main_prod_submit_button('pd')">Per Day</button>
 						</td>
 						<td width="25%" style="border:1px solid; text-align:right;">
-							<button style="width:25%">Oil</button>
-							<button style="width:25%">Gas</button>
-							<button style="width:25%">LPG</button>
-							<button style="width:25%">All</button>
+							<button style="width:25%" onClick="srpt_enp_main_prod_prd_button('oil')">Oil</button>
+							<button style="width:25%" onClick="srpt_enp_main_prod_prd_button('gas')">Gas</button>
+							<button style="width:25%" onClick="srpt_enp_main_prod_prd_button('lpg')">LPG</button>
+							<button style="width:25%" onClick="srpt_enp_main_prod_prd_button('all')">All</button>
 						</td>
 					</tr>
 				</table>

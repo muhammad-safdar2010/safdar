@@ -146,6 +146,7 @@
 							$str_field_IDfr=$_REQUEST['_field_fr'];
 							$str_field_IDto=$_REQUEST['_field_to'];
 							$_ag_pd=$_REQUEST['_ag_pd'];
+							$_prd=$_REQUEST['_prd'];
 									// $menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
 									// $menu=fn_enp_main_prod_field_table_pd();
 echo $_ag_pd;
@@ -155,7 +156,7 @@ echo $_ag_pd;
 								}
 							else 
 								{
-									$menu=fn_enp_main_prod_field_table_pd($_ag_pd);
+									$menu=fn_enp_main_prod_field_table_pd($_ag_pd,$_prd);
 								}
 
 							$i=0;
