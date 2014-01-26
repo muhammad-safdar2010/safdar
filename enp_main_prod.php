@@ -77,7 +77,7 @@
 							<div id="txtHint3"></div>
 						</td>
 						<td width="10%">
-							<input type="submit" name="submit" value="Submit" style="width:100%"; />
+							<button onClick="srpt_enp_main_prod_submit_button()">Try it</button>
 						</td>
 					</tr>
 				</table>
@@ -95,9 +95,9 @@
 			<div id="enp_main_prod_left_div" style="border:0px solid; width:10%; float:left;">
 			</div>
 			<div id="enp_main_prod_left_div" style="border:0px solid; width:80%; float:left;">
-				<table width="100%" style="border:0px solid;">
+				<table width="100%" style="border:1px solid;">
 					<tr>
-						<td width="25%" style="border:0px solid";>
+						<td width="25%" style="border:1px solid";>
 							<div id="enp_monthly_prod_main_div_h2_01" style="border:0px solid; height:30%; float:left;">
 								<img src="img/excel.png">
 							</div>
@@ -106,19 +106,15 @@
 								<a href="main_page.php?id=enp_field_data_r&id1=D">&nbsp;Download</a>
 							</div>
 						</td>
-						<td width="40%" style="border:0px solid; text-align:right;">
-							<form action="">
-								<input type="radio" name="data_type" value="aggr" checked>Aggregate
-								<input type="radio" name="data_type" value="pday">Per Day
-							</form>
+						<td width="30%" style="border:1px solid; text-align:right;">
+							<button style="width:25%" onClick="srpt_enp_main_prod_submit_button('a')">Aggregate</button>
+							<button style="width:25%" onClick="srpt_enp_main_prod_submit_button('pd')">Per Day</button>
 						</td>
-						<td width="15%" style="border:0px solid; text-align:right;">
-							<form action="">
-								<input type="radio" name="data_cat" value="oil" checked>Oil
-								<input type="radio" name="data_cat" value="gas">Gas
-								<input type="radio" name="data_cat" value="lpg">LPG
-								<input type="radio" name="data_cat" value="allp">All
-							</form>
+						<td width="25%" style="border:1px solid; text-align:right;">
+							<button style="width:25%">Oil</button>
+							<button style="width:25%">Gas</button>
+							<button style="width:25%">LPG</button>
+							<button style="width:25%">All</button>
 						</td>
 					</tr>
 				</table>

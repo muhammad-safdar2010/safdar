@@ -99,7 +99,11 @@
 					if($_REQUEST['gr_srpt_enp_main_prod_field_t_ddl']=='mprod_t')
 						{
 		?>
-							<select 
+<!--							<select 
+									name="myddl_enp_mview_comp" 
+									style="width:100%"; 
+									onChange="srpt_enp_main_prod_field_to_ddl(this.value)">
+-->							<select 
 									name="myddl_enp_mview_comp" 
 									style="width:100%"; 
 									onChange="srpt_enp_main_prod_field_to_ddl(this.value)">
@@ -141,7 +145,20 @@
 							$str_field_IDf=$_REQUEST['_field_fi'];
 							$str_field_IDfr=$_REQUEST['_field_fr'];
 							$str_field_IDto=$_REQUEST['_field_to'];
-							$menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
+							$_ag_pd=$_REQUEST['_ag_pd'];
+//									$menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
+									$menu=fn_enp_main_prod_field_table_pd();
+
+/*
+							if(!isset($_REQUEST['_ag_pd']))
+								{
+									$menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
+								}
+							else 
+								{
+									$menu=fn_enp_main_prod_field_table_pd($_ag_pd);
+								}
+*/
 							$i=0;
 							echo "
 								<table style='border:1px solid black;border-collapse:collapse;' class='general_lbl'><thead>

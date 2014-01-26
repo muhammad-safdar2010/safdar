@@ -71,6 +71,12 @@
 					$rs=mysql_query($sql_drop_tbd,$dbase);
 					fn_close($dbase);
 
+					$sql_drop_tbdp='';
+					$sql_drop_tbdp="DROP TABLE IF EXISTS tb_enp_dump_mpp";
+					$dbase=fn_con();
+					$rs=mysql_query($sql_drop_tbdp,$dbase);
+					fn_close($dbase);
+
 					$sql_create_tba='';
 					$sql_create_tba="
 						CREATE TABLE tb_enp_dump_mp (
@@ -120,7 +126,7 @@
 					$sql_select="
 						select 
 						vufm.field_id, vufm.field_descr, 
-						vupm.mnth_id, vupm.field_cont, vupm.pr_portion, ifnull(vufm.kats_code, '--') kats_code, vufm.field_type 
+						vupm.mnth_id, vupm.field_cont, vupm.pr_portion, (vupm.pr_portion / 30) pr_pd_port, ifnull(vufm.kats_code, '--') kats_code, vufm.field_type 
 						from vu_pmaster vupm, vu_fmaster vufm  
 						where vupm.field_id = vufm.field_id and vupm.ft_sr_no = vufm.ft_sr_no and 
 						vupm.field_id = $str_field_IDf and mnthid between $str_field_IDfr and $str_field_IDto 
@@ -131,11 +137,12 @@
 					$i=5;
 					while($row = mysql_fetch_array($rs))
 						{
-							$_field_id=$row[field_id]; 
+							$_field_id=$row['field_id']; 
 							$_field_descr=$row['field_descr']; 
 							$_mnth_id=$row['mnth_id'];
-							$_field_cont=$row[field_cont];
-							$_pr_portion=$row[pr_portion];
+							$_field_cont=$row['field_cont'];
+							$_pr_portion=$row['pr_portion'];
+							$_pr_pd_port=$row['pr_pd_port'];
 							$_kats_code=$row['kats_code'];
 							$_field_type=$row['field_type']; 
 
@@ -147,6 +154,7 @@
 									$_mnth_col='';
 									$_mnth_id_chk='';
 									$_mnth_id_chk = $_mnth_id; 
+									$_pd_mnth_nam = $_mnth_id . "_pd";
 
 									$_mnth_col=substr($_mnth_id_chk, 5, 3).'-'.substr($_mnth_id_chk, 2, 2);
 
@@ -165,6 +173,15 @@
 									$rs_column=mysql_query($sql_altera,$dbase);
 									fn_close($dbase);
 
+									$sql_altera_pd='';
+									$sql_altera_pd="
+										alter table tb_enp_dump_mp add 
+											column ".$_pd_mnth_nam." decimal(14,4) 
+										unsigned null default 0"; 
+									$dbase=fn_con();
+									$rs_column_pd=mysql_query($sql_altera_pd,$dbase);
+									fn_close($dbase);
+
 									$sql_alterd='';
 									$sql_alterd="alter table tb_enp_dump_mp1 add column ".$_col." varchar(15)"; 
 									$dbase=fn_con();
@@ -181,15 +198,21 @@
 							$sql_insert="
 								insert into tb_enp_dump_mp (
 									field_id, field_descr, 
-									field_cont, kats_code, field_type, $_mnth_id
+									field_cont, kats_code, field_type, $_mnth_id, $_pd_mnth_nam 
 								) values (
 									$_field_id, '$_field_descr', 
-									$_field_cont, '$_kats_code', '$_field_type', $_pr_portion
+									$_field_cont, '$_kats_code', '$_field_type', $_pr_portion, $_pr_pd_port 
 								)"; 
 							$dbase=fn_con();
 							$results=mysql_query($sql_insert,$dbase);
 							fn_close($dbase);
 						}
+
+					$sql_create_tba='';
+					$sql_create_tba="create table tb_enp_dump_mpp select * from tb_enp_dump_mp";
+					$dbase=fn_con();
+					$rs=mysql_query($sql_create_tba,$dbase);
+					fn_close($dbase);
 
 					$sql= "select " . $_select_header . $_select_rows . 
 						" from ( select " . $_select_header . " from tb_enp_dump_mp1 union all "; 
@@ -198,8 +221,94 @@
 					$sql= $sql. ") tbin group by " . $_group_detail_out . " ) tb" ; 
 					return fetch_query_m_prod($sql);
 				}
+//			function fn_enp_main_prod_field_table_pd($_ag_pd) 
+			function fn_enp_main_prod_field_table_pd() 
+				{
+					$sql_drop_tba='';
+					$sql_drop_tba="DROP TABLE IF EXISTS tb_enp_dump_mp";
+					$dbase=fn_con();
+					$rs=mysql_query($sql_drop_tba,$dbase);
+					fn_close($dbase);
+
+					$sql_create_tba='';
+					$sql_create_tba="create table tb_enp_dump_mp select * from tb_enp_dump_mpp";
+					$dbase=fn_con();
+					$rs=mysql_query($sql_create_tba,$dbase);
+					fn_close($dbase);
+
+					$_col_num=0;
+					$sql_select='';
+					$sql_select="
+						SELECT count(*) col_name FROM information_schema.columns WHERE table_name='tb_enp_dump_mp'
+						"; 
+					$dbase=fn_con();
+					$rs=mysql_query($sql_select,$dbase);
+					fn_close($dbase);
+					while($row = mysql_fetch_array($rs))
+						{
+							$_col_num=$row['col_name']; 
+						}
+					$_col_num=(($_col_num - 5) / 2); 
+
+					$_c_num = 5; 
+					$_fix_header1 = "col1, col2, col3, col4, col5"; 
+					$_fix_header = "field_id, field_descr, kats_code, field_type, field_cont"; 
+					$_fix_group_by = $_fix_header; 
+					for($i=1; $i<=$_col_num;$i++)
+						{
+							$_c_num++; 
+							$_col_name='';
+							$_col_name='col' . $_c_num;
+							$sql_select='';
+							$sql_select="SELECT " . $_col_name . " FROM tb_enp_dump_mp1 limit 1"; 
+
+							$dbase=fn_con();
+							$rs=mysql_query($sql_select,$dbase);
+							fn_close($dbase);
+							while($row = mysql_fetch_array($rs))
+								{
+									if(substr($row[$_col_name], 4) > -1 and substr($row[$_col_name], 4) < 51)
+										{
+$_fix_header=$_fix_header . ", " . "20" . substr($row[$_col_name], 4) . "_" . substr($row[$_col_name], 0, 3); 
+											$_fix_header1 = $_fix_header1 . ", col" . $_c_num; 
+										}
+								}
+						}
+
+					$sql = "select " . $_fix_header1;
+					$sql = $sql . ", 
+						(SELECT count(*) column_name FROM information_schema.columns WHERE table_name='tb_enp_dump_mp1') col99"; 
+					$sql = $sql . " from ( ";  
+					$sql = $sql . "select " . $_fix_header1 . " from tb_enp_dump_mp1 union all ";  
+					$sql = $sql . "select " . $_fix_header . " from tb_enp_dump_mp group by " . $_fix_group_by . " ) tb "; 
+					return fetch_query_m_prod($sql);
+				}
 		// *** end of Field Information Grid Details *** 
 	// *** end of Monthly Information Regarding Field *** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//
 	//
 	// *** Monthly Information Regarding Lease *** 

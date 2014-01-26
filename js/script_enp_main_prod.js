@@ -4,6 +4,7 @@ var _field_to=0;
 var _lease=0;
 var _lease_from=0;
 var _lease_to=0;
+var _ag_pd=0;
 // *** Information Regarding Data Selection 1st DDL *** 
 	function srpt_enp_main_prod_dcat_ddl(str)
 		{
@@ -117,6 +118,7 @@ var _lease_to=0;
 		function srpt_enp_main_prod_field_to_ddl(str)
 			{
 				_field_to=str;
+/*
 				if (str=="")
 					{
 						document.getElementById("txtHint9").innerHTML="";
@@ -138,6 +140,42 @@ var _lease_to=0;
 							}
 					}
 				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to,true);
+				xmlhttp.send();
+*/
+			}
+
+
+		function srpt_enp_main_prod_submit_button(str)
+			{
+				if(str=="a")
+					{
+						_ag_pd=0;
+					}
+				if(str=="pd")
+					{
+						_ag_pd=1;
+					}
+				if (str=="")
+					{
+						document.getElementById("txtHint9").innerHTML="";
+						return;
+					} 
+				if (window.XMLHttpRequest)
+					{// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+					}
+				else
+					{// code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+				xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+							{
+								document.getElementById("txtHint9").innerHTML=xmlhttp.responseText;
+							}
+					}
+				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd,true);
 				xmlhttp.send();
 			}
 	// *** end of Field Information Period To 4th DDL *** 
