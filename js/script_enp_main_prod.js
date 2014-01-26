@@ -149,11 +149,18 @@ var _ag_pd=0;
 			{
 				if(str=="a")
 					{
+						alert("Aggrigate");
 						_ag_pd=0;
 					}
 				if(str=="pd")
 					{
+						alert("Per Day");
 						_ag_pd=1;
+					}
+				if(str=="t")
+					{
+						alert("Try it");
+						_ag_pd=2;
 					}
 				if (str=="")
 					{

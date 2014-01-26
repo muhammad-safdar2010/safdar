@@ -146,11 +146,10 @@
 							$str_field_IDfr=$_REQUEST['_field_fr'];
 							$str_field_IDto=$_REQUEST['_field_to'];
 							$_ag_pd=$_REQUEST['_ag_pd'];
-//									$menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
-									$menu=fn_enp_main_prod_field_table_pd();
-
-/*
-							if(!isset($_REQUEST['_ag_pd']))
+									// $menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
+									// $menu=fn_enp_main_prod_field_table_pd();
+echo $_ag_pd;
+							if($_ag_pd==2)
 								{
 									$menu=fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto);
 								}
@@ -158,7 +157,7 @@
 								{
 									$menu=fn_enp_main_prod_field_table_pd($_ag_pd);
 								}
-*/
+
 							$i=0;
 							echo "
 								<table style='border:1px solid black;border-collapse:collapse;' class='general_lbl'><thead>

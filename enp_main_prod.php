@@ -77,7 +77,7 @@
 							<div id="txtHint3"></div>
 						</td>
 						<td width="10%">
-							<button onClick="srpt_enp_main_prod_submit_button()">Try it</button>
+							<button onClick="srpt_enp_main_prod_submit_button('t')">Try it</button>
 						</td>
 					</tr>
 				</table>

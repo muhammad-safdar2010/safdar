@@ -221,8 +221,8 @@
 					$sql= $sql. ") tbin group by " . $_group_detail_out . " ) tb" ; 
 					return fetch_query_m_prod($sql);
 				}
-//			function fn_enp_main_prod_field_table_pd($_ag_pd) 
-			function fn_enp_main_prod_field_table_pd() 
+			function fn_enp_main_prod_field_table_pd($_ag_pd) 
+			// function fn_enp_main_prod_field_table_pd() 
 				{
 					$sql_drop_tba='';
 					$sql_drop_tba="DROP TABLE IF EXISTS tb_enp_dump_mp";
