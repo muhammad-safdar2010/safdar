@@ -57,8 +57,10 @@
 		// 
 		// 
 		// *** Field Information Grid Details *** 
-			function fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto) 
+			function fn_enp_main_prod_field_table($str_field_IDf,$str_field_IDfr,$str_field_IDto,$str_freq) 
 				{
+					echo "_freq= ";
+					echo $str_freq;
 					$sql_drop_tba='';
 					$sql_drop_tba="DROP TABLE IF EXISTS tb_enp_dump_mp";
 					$dbase=fn_con();

@@ -41,6 +41,7 @@
 						<td width="15%">
 								<select name="dd_option" style="width:100%"; onChange="srpt_enp_main_prod_dcat_ddl(this.value)">
 									<option value="0">
+										-- Select --
 									</option>
 <?php
 									$menu=fn_enp_main_prod_dcat_ddl();
@@ -59,22 +60,34 @@
 								</select>
 						</td>
 						<td width="30%">
-							<div id="txtHint"></div>
+							<div id="txtHint"><select style="width:100%">
+								<option value="0">-- Select --</option>
+
+							</select></div>
 						</td>
 						<td width="15%">
-							<select id="frequency_ddl" name="frequency_ddl" style="width:100%";>                      
-								<option value="0">Weekly</option>
-								<option value="1">Monthly</option>
-								<option value="2">Quarterly</option>
-								<option value="3">Half Yearly</option>
-								<option value="4">Yearly</option>
+							<select 
+								id="frequency_ddl" 
+								name="frequency_ddl" 
+								style="width:100%"; 
+								onChange="srpt_enp_main_prod_freq_ddl(this.value)">                      
+								<option value="0">-- Select --</option>
+								<option value="1">Weekly</option>
+								<option value="2">Monthly</option>
+								<option value="3">Quarterly</option>
+								<option value="4">Half Yearly</option>
+								<option value="5">Yearly</option>
 							</select>
 						</td>
 						<td width="15%">
-							<div id="txtHint2"></div>
+							<div id="txtHint2"><select style="width:100%">
+								<option value="0">-- Select --</option>
+							</select></div>
 						</td>
 						<td width="15%">
-							<div id="txtHint3"></div>
+							<div id="txtHint3"><select style="width:100%">
+								<option value="0">-- Select --</option>
+							</select></div>
 						</td>
 						<td width="10%">
 							<button onClick="srpt_enp_main_prod_submit_button('t')">Try it</button>

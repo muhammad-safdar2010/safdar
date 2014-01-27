@@ -6,6 +6,7 @@ var _lease_from=0;
 var _lease_to=0;
 var _ag_pd="";
 var _prd="";
+var _freq="";
 // *** Information Regarvarding Data Selection 1st DDL *** 
 	function srpt_enp_main_prod_dcat_ddl(str)
 		{
@@ -145,6 +146,10 @@ var _prd="";
 */
 			}
 
+		function srpt_enp_main_prod_freq_ddl(str)
+		{
+			_freq=str;
+		}
 
 		function srpt_enp_main_prod_submit_button(str)
 			{
@@ -153,6 +158,22 @@ var _prd="";
 						document.getElementById("txtHint9").innerHTML="";
 						return;
 					} 
+				if(_freq==""||_freq=="0"){
+					alert("Kindly Select Frequency");
+					return;
+				}
+				if(_freq==""||_freq=="0"){
+					alert("Kindly Select Frequency");
+					return;
+				}
+				if(_freq==""||_freq=="0"){
+					alert("Kindly Select Frequency");
+					return;
+				}
+				if(_freq==""||_freq=="0"){
+					alert("Kindly Select Frequency");
+					return;
+				}
 				if(str=="a")
 					{
 						alert("Aggrigate");
@@ -184,7 +205,7 @@ var _prd="";
 								document.getElementById("txtHint9").innerHTML=xmlhttp.responseText;
 							}
 					}
-				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd,true);
+				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd+"&_freq="+_freq,true);
 				xmlhttp.send();
 			}
 			
@@ -235,7 +256,7 @@ var _prd="";
 								document.getElementById("txtHint9").innerHTML=xmlhttp.responseText;
 							}
 					}
-				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd,true);
+				xmlhttp.open("GET","gr_enp_main_prod.php?gr_srpt_enp_main_prod_field_table=table&_field_fi="+_field+"&_field_fr="+_field_from+"&_field_to="+_field_to+"&_ag_pd="+_ag_pd+"&_prd="+_prd+"&_freq="+_freq,true);
 				xmlhttp.send();
 			}
 	// *** end of Field Information Period To 4th DDL *** 
